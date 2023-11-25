@@ -6,3 +6,4 @@ Trabajo realizado por Javier Calderon Álvarez, Alberto Martín Martín y Antoni
 - pip install pandas
 - pip install easyocr
 - pip install pytesseract
+- pip install pillow
