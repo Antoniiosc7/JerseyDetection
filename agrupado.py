@@ -9,10 +9,7 @@ import cv2
 
 def listar_archivos_en_directorio(ruta):
     try:
-        # Listar todos los archivos en el directorio
         archivos = os.listdir(ruta)
-
-        # Mostrar los nombres de los archivos
         print("Archivos en el directorio:")
         for archivo in archivos:
             print(archivo)
@@ -130,7 +127,7 @@ def menu3(libreria, filtro):
             break
         elif opcion == "2":
             print("Has seleccionado la dificultad intermedia")
-            dificultad="intermedia"
+            dificultad="intermedio"
             menu4(libreria, filtro, dificultad)
             break
         elif opcion == "3":
@@ -168,4 +165,10 @@ def menu4(libreria, filtro, dificultad):
         print("Entrada no válida. Ingresa un número válido.")
 
 if __name__ == "__main__":
+    db = pd.read_csv("male_players.csv")
+    selected_columns = ["short_name", "long_name", "club_jersey_number", "nation_jersey_number"]
+    selected_data = db[selected_columns]
+    seleccionada = db["short_name"].values.tolist()
+    listaApellidos = [max(name.split(), key=len) for name in seleccionada]
     main()
+

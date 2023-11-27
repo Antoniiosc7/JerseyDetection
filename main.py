@@ -11,7 +11,6 @@ def main():
     db = pd.read_csv("male_players.csv")
     selected_columns = ["short_name", "long_name", "club_jersey_number", "nation_jersey_number"]
     selected_data = db[selected_columns]
-    todaLaDB = selected_data.values.tolist()
     seleccionada = db["short_name"].values.tolist()
     listaApellidos = [max(name.split(), key=len) for name in seleccionada]
     # -------------------------- . -------------------------- #
