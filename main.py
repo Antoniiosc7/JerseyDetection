@@ -15,41 +15,57 @@ def main():
     seleccionada = db["short_name"].values.tolist()
     listaApellidos = [max(name.split(), key=len) for name in seleccionada]
     # -------------------------- . -------------------------- #
-
     ruta = input("\n Ingresa el nombre de la foto que deseas abrir: ")
+    #ruta="rodrigo.jpg"
     nombre, dorsal = easyOcr(ruta)
-    escribeResultadoEasyOcr(nombre, dorsal)
 
-    coincidenciasResult(listaApellidos, nombre, dorsal, todaLaDB, db)
-    #coincidenciaAntiguo(nombre, listaApellidos, db)
-    #coincidencias = buscar_coincidencias_con_posiciones(listaApellidos, nombre)
+    escribeResultadoEasyOcr(nombre, dorsal)
+    print("")
+ 
+    coincidencias = buscar_coincidencias_con_posiciones(listaApellidos, nombre, dorsal, db)
+    print(coincidencias)
+    if coincidencias:
+        listaFin=listaResultante(coincidencias,db,dorsal)
+        print(listaFin)
+        print(listaFin[0][0])
+    else:
+        print(f"No se encontró ninguna coincidencia para {nombre}.")
+
 
 
     
-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-  
-def coincidenciaAntiguo(nombre, listaApellidos, db):
-    coincidencia = False
-    posicion = -1
-    for palabra in nombre.split():
-        coincidencia, posicion = buscar_coincidencia_con_posicion(listaApellidos, palabra)
-        if coincidencia:
-            break
-    if coincidencia:
-        print(f"En esa foto se ha encontrado a {db['long_name'].iloc[posicion]}. \n En su club lleva el dorsal: {db['club_jersey_number'].iloc[posicion]} ")
-    else:
-        print(f"No se encontró ninguna coincidencia para {nombre}.")
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#- 
+def listaResultante(coincidencias,db, dorsal):
+    lista = []
+    if(dorsal!=""):
+        if coincidencias:
+            for a, posicion in coincidencias:
+                nonbreCompleto=db['long_name'].iloc[posicion]
+                dorsalJugador= db['club_jersey_number'].iloc[posicion]
+                dorsalSeleccion = db['nation_jersey_number'].iloc[posicion]
+                if int(dorsal)==int(dorsalJugador):
+                    b=(nonbreCompleto, int(dorsalJugador))
+                    lista.append(b)            
+
+    return lista
+
+
+def buscar_coincidencias_con_posiciones(lista, nombre_jugador, dorsal, db):
+    coincidencias = []
+    posiciones_encontradas = set()
+
+    for palabra in nombre_jugador.split():
+        for i, elemento in enumerate(lista):
+            if palabra.lower() in elemento.lower() and i not in posiciones_encontradas:
+                coincidencias.append((palabra, i))
+                posiciones_encontradas.add(i)
+    return coincidencias
+
+
 
 def filtroImagen(imagen):
     gray = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
     return gray
-
-def coincidenciasResult(listaApellidos, nombre, dorsal, todaLaDB, db):
-    coincidencias = buscar_coincidencias_con_posiciones(listaApellidos, nombre, dorsal, todaLaDB)
-    if coincidencias:
-        for palabra, posicion in coincidencias:
-            print(f"\n En esa foto se ha encontrado a {db['long_name'].iloc[posicion]}. \n En su club lleva el dorsal: {db['club_jersey_number'].iloc[posicion]} con el nombre: {palabra}")
-    else:
-        print(f"\n No se encontró ninguna coincidencia para {nombre}.")
 
 def easyOcr(ruta):
     nombre = ""
@@ -75,70 +91,18 @@ def easyOcr(ruta):
         elif text.isdigit(): 
             dorsal = text
     return [nombre, dorsal]
-'''
-def buscar_coincidencias_con_posiciones(lista, nombre_jugador):
-    coincidencias = []
-    posiciones_encontradas = set()
-    for palabra in nombre_jugador.split():
-        for i, elemento in enumerate(lista):
-            if palabra.lower() in elemento.lower() and i not in posiciones_encontradas:
-                coincidencias.append((palabra, i))
-                posiciones_encontradas.add(i)
-    return coincidencias
-'''
-
-def buscar_coincidencias_con_posiciones(lista, nombre_jugador, dorsal, todaLaDB):
-    coincidencias = []
-    posiciones_encontradas = set()
-    dorsal_club = todaLaDB[2]
-    dorsal_seleccion = todaLaDB[3]
-    
-    for palabra in nombre_jugador.split():
-        for i, elemento in enumerate(lista):
-            if palabra.lower() in elemento.lower() and i not in posiciones_encontradas:
-                if len(dorsal) >= 1 and (dorsal == dorsal_club[i] or dorsal == dorsal_seleccion[i]):
-                    coincidencias.append((palabra, i))
-                    posiciones_encontradas.add(i)
-
-    return coincidencias
-
 
 def escribeResultadoEasyOcr(nombre, dorsal):
     if(len(nombre)>1):
         print("La libreria easyOCR ha detectado el siguiente texto: " + nombre)
     else:
         print("No se ha encontrado texto")
-    if(len(dorsal)>=1):
-        print("La libreria easyOCR ha detectado el siguiente numero: " + dorsal)
+    if(dorsal != ""):
+        print("La libreria easyOCR ha detectado el siguiente numero: " + str(dorsal))
     else:
         print("No se ha encontrado ningun numero")
 
-def buscar_coincidencia_con_posicion(lista, nombre_jugador):
-    for palabra in nombre_jugador.split():
-        for i, elemento in enumerate(lista):
-            if palabra.lower() in elemento.lower():
-                return True, i
-    return False, -1
 
 
 if __name__ == "__main__":
     main()
-
-
-    
-def buscar_coincidencias_con_posiciones(lista, nombre_jugador, dorsal, todaLaDB):
-    coincidencias = []
-    posiciones_encontradas = set()
-    dorsal_club = todaLaDB[2]
-    dorsal_seleccion=todaLaDB[3]
-    for palabra in nombre_jugador.split():
-        for i, elemento in enumerate(lista):
-            if palabra.lower() in elemento.lower() and i not in posiciones_encontradas:
-                if(len(dorsal)>=1 and (dorsal == dorsal_club[i] or dorsal == dorsal_seleccion[i])):
-                    coincidencias=(palabra, i)
-                    posiciones_encontradas=i
-                    return coincidencias
-                else:
-                    coincidencias.append((palabra, i))
-                    posiciones_encontradas.add(i)
-    return coincidencias
