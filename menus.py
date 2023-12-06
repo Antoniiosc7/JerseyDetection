@@ -3,6 +3,7 @@ import cv2
 import os
 import matplotlib.pyplot as plt
 import cv2
+import filtros
 
 def main():
     while True:
@@ -82,7 +83,7 @@ def menu3(libreria, filtro):
         print("\n Ahora, selecciona una carpeta de imagenes:")
         print("1. Imágenes faciles de leer")
         print("2. Imagenes intermedias")
-        print("3. Varias camisetas")
+        print("3. Imagenes dificiles")
         print("0. Salir")
 
         opcion = input("Ingresa el número de la opción que deseas: ")
@@ -120,14 +121,14 @@ def menu4(libreria, filtro, dificultad):
         if 1 <= opcion <= len(directorio):
             img_seleccionada = directorio[opcion - 1]
             imagen = mainFile.cargar_imagen(dificultad, img_seleccionada)
-            imagen_filtrada = mainFile.filtrado(filtro, imagen)
+            imagen_filtrada = filtros.filtrado(filtro, imagen)
 
             plt.subplot(1,2,1)
             plt.title("Imagen original")
             plt.imshow(cv2.cvtColor(imagen, cv2.COLOR_BGR2RGB))
             plt.subplot(1,2,2)
             plt.title("Imagen con el filtro aplicado")
-            plt.imshow(cv2.cvtColor(imagen_filtrada, cv2.COLOR_BGR2RGB))            
+            plt.imshow(imagen_filtrada)            
             plt.show()
 
             print("\nTratando de leer la imagen filtrada con la liberia selecionada...")

@@ -25,15 +25,7 @@ def cargar_imagen(ruta_directorio, nombre_imagen):
     imagen = cv2.imread(ruta_completa)
     return imagen
 
-def filtrado(filtro, imagen):
-    if filtro==1:
-        return cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
-    elif filtro==2:
-        pass
-    elif filtro==3:
-        pass
-    elif filtro==4:
-        pass
+
     
 def leeImagen(libreria, imagen):
     if libreria == "easyocr":
