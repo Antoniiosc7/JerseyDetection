@@ -1,6 +1,6 @@
 import pandas as pd
 import cv2
-import pytesseract, easyocr, keras_ocr
+import pytesseract, easyocr
 import os
 import matplotlib.pyplot as plt
 import menus
@@ -30,8 +30,6 @@ def leeImagen(libreria, imagen):
     elif libreria == "pytesseract":
         return pyTesseract(imagen)
     elif libreria == "kerasocr":
-        return keras0cr("facil/navas.png")
-    elif libreria == "todas":
         pass
 
 def clasificar_elementos(cadena):
@@ -99,22 +97,6 @@ def easyOcr(img):
             dorsal = text
     return [nombre, dorsal]
 
-def keras0cr(img):
-    nombre = ""
-    dorsal = ""
-        # Cargar el modelo OCR
-    pipeline = keras_ocr.pipeline.Pipeline()
-        # Reconocer texto en la imagen
-    prediction_groups = pipeline.recognize([img])
-    
-    for predictions in prediction_groups:
-        for text_result in predictions:
-            text = text_result[0]
-            if text.isalpha():
-                nombre += text + " "
-            elif text.isdigit():
-                dorsal = text
-    return [nombre, dorsal]
 def easyOcrCrudo(img):
     imagen = cv2.imread('ruta/a/tu/imagen.jpg')
     lector_ocr = easyocr.Reader(['en'], gpu=True) 
