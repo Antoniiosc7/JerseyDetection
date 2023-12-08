@@ -99,6 +99,7 @@ def eligeFoto(dificultad):
             print("Lectura de mejora de nitidez Laplaciano: \n PyTesseract: " + str(mainFile.pyTesseractCrudo(imagen_filtrada5)) + "\n easyOcr: " + leeimagen5)
                   
             plt.show()
+            menuFinal()
 
         else:
             print("Número fuimagenera de rango. Inténtalo de nuevo.")

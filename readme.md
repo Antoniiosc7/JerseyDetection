@@ -1,6 +1,13 @@
 # Trabajo PID
 Trabajo realizado por Javier Calderon Álvarez, Alberto Martín Martín y Antonio Saborido
 
+## Indice
+1. [Resumen del Proyecto](#resumen-del-proyecto)
+2. [Objetivos del Proyecto](#objetivos-del-proyecto)
+3. [Instalación](#instalación)
+4. [Breve Descripción de Funcionamiento](#breve-descripción-de-funcionamiento)
+5. [Uso de Nuevas Imágenes](#uso-de-nuevas-imágenes)
+
 ## Resumen del Proyecto:
 El proyecto se centra en el desarrollo de un sistema de reconocimiento de jugadores de fútbol utilizando imágenes de sus camisetas como entrada. La idea es aprovechar la información visual de las camisetas, que suelen estar marcadas con el nombre y el número del jugador, para identificar automáticamente a quién pertenece la camiseta. Una vez identificado el jugador, el sistema accederá a la base de datos del videojuego EA Sports FC 24 para extraer sus estadísticas.
 
@@ -23,6 +30,7 @@ En windows se puede ejecutar directamente el script "scriptInstalacion.bat", o t
 - pip install pytesseract
 - pip install os-sys
 
+Una vez esten todas las librerias instaladas, se ejecutará arrancando el archivo mainFile.py o sencillamente ejecutando el archivo "arranque.bat".
 
 ## Breve descripcion de funcionamiento
 
@@ -35,7 +43,8 @@ El proyecto está dividido en 4 archivos.
 Después tambien está el archivo 'comparativaGlobal.py' que es un archivo que al ejecutarlo y seleccionar una imagen para analizar procederá a comparar las lecturas de las dos librerias con todos los filtros a la vez, de esta forma se puede ver que filtro y qué libreria funciona mejor para cada archivo.
 
 Por ejemplo, asi se verían los filtros para una imagen:
-    ![Foto ejemplo de ver todos los filtros](ejemploReadme.png)
+
+![Foto ejemplo de ver todos los filtros](ejemploReadme.png)
 
 Y esto es lo que leemos con la libreria easyOcr por ejemplo:
 -   Lectura imagen original: ['IRAKITIC ', '']
@@ -44,3 +53,9 @@ Y esto es lo que leemos con la libreria easyOcr por ejemplo:
 -   Lectura imagen con mejora del contraste: ['IRAKITIC ', '10']
 -   Lectura imagen suavizada (Gaussiano): ['LRAKITIC ', '10']
 -   Lectura de mejora de nitidez Laplaciano:  ['', '']
+
+La comparación con jugadores de la BD de EA Sports solo está disponible con el uso de la libreria 'easyOcr' y  filtros individuales", es decir, si en el primer menú se selecciona todos los filtros y librerias, no se comparará con esta base de datos.
+
+## Uso de nuevas imagenes
+
+Para el uso de nuevas imagenes a parte de las por defecto, simplemente habrá que copiarlas en algunos de los directorios 'facil', 'intermedio' o 'dificil. Una vez hecho esto la nueva imagen ya será seleccionable cuando se vuelva a ejecutar.

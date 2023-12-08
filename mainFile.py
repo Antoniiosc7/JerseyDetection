@@ -122,4 +122,4 @@ def pyTesseract(img):
     return [textoRes, dorsal, img]
             
 if __name__ == "__main__":
-    menus.main()
+    menus.opcion()

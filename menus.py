@@ -1,9 +1,35 @@
-import mainFile, cv2, filtros, comparacionBD
+import mainFile, cv2, filtros, comparacionBD, comparativaGlobal
 import matplotlib.pyplot as plt
+
+def opcion():
+    while True:
+        print("¿Desea usar filtros y librerias indivualmente o todos a la vez?")
+        print("\nINFO: La comparación con jugadores de la BD de EA Sports solo ")
+        print("       está disponible con el uso de la libreria 'easyOcr' y ")
+        print("       filtros individuales")
+        print("\n1. De forma individual")
+        print("2. Todos los filtros y librerias")
+        print("0. Salir")
+
+        opcion = input("Ingresa el número de la opción que deseas: ")
+
+        if opcion == "1":
+            print("Has seleccionado de forma individual")
+            main()
+            break
+        elif opcion == "2":
+            print("Has seleccionado todos los filtros y galerias")
+            comparativaGlobal.eligeDirectorio()            
+            break
+        elif opcion == "0":
+            print("Saliendo...")
+            break
+        else:
+            print("Opción no válida. Inténtalo de nuevo.")
 
 def main():
     while True:
-        print("Selecciona una opción:")
+        print("\nSelecciona una opción:")
         print("1. Libreria easyocr")
         print("2. Libreria pytesseract")
         print("3. Mostrar lectura cruda de todas las librerias")
@@ -126,14 +152,13 @@ def menu4(libreria, filtro, dificultad):
             print("\nTratando de leer la imagen filtrada con la liberia selecionada...")
             resultadoLeeImagen = mainFile.leeImagen(libreria, imagen)
             mainFile.pintaLeeImagen(libreria,resultadoLeeImagen)
-            '''
-            if(len(str(resultadoLeeImagen)[0])>0):
-                print("\n Buscando coincidencias en la base de datos de EASport FC 24...")
-                #comparacionBD.compruebaDB(resultadoLeeImagen)
-            else:
-                print("Al no encontrase ningun texto en la imagen, no se pueden buscar coincidencias con la base de datos.")
+            if libreria == "easyocr":
+                if(len(str(resultadoLeeImagen)[0])>0):
+                    print("\n Buscando coincidencias en la base de datos de EASport FC 24...")
+                    comparacionBD.compruebaDB(resultadoLeeImagen)
+                else:
+                    print("Al no encontrase ningun texto en la imagen, no se pueden buscar coincidencias con la base de datos.")
             menu5()
-            '''
         else:
             print("Número fuimagenera de rango. Inténtalo de nuevo.")
             menu5()
