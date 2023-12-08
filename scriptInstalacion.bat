@@ -51,21 +51,6 @@ if errorlevel 1 (
     echo Librería os-sys instalada correctamente.
 )
 
-rem Instalar tensorflow
-pip install tensorflow
-if errorlevel 1 (
-    echo Error al instalar tensorflow.
-) else (
-    echo Librería tensorflow instalada correctamente.
-)
-
-rem Instalar keras-ocr
-pip install keras-ocr
-if errorlevel 1 (
-    echo Error al instalar keras-ocr.
-) else (
-    echo Librería keras-ocr instalada correctamente.
-)
 
 echo Instalación completa.
 pause

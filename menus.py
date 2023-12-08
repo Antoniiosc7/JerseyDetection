@@ -1,17 +1,12 @@
-import mainFile
-import cv2
-import os
+import mainFile, cv2, filtros, comparacionBD
 import matplotlib.pyplot as plt
-import cv2
-import filtros
 
 def main():
     while True:
         print("Selecciona una opción:")
         print("1. Libreria easyocr")
-        print("2. Libreria kerasOcr")
-        print("3. Libreria pytesseract")
-        print("4. Mostrar lectura cruda de todas las librerias")
+        print("2. Libreria pytesseract")
+        print("3. Mostrar lectura cruda de todas las librerias")
         print("0. Salir")
 
         opcion = input("Ingresa el número de la opción que deseas: ")
@@ -22,19 +17,10 @@ def main():
             menu2(libreria)
             break
         elif opcion == "2":
-            print("Has seleccionado la libreria kerasOcr")
-            libreria="kerasOcr"
-            menu2(libreria)
-            break
-        elif opcion == "3":
             print("Has seleccionado la libreria pytesseract")
             libreria="pytesseract"
             menu2(libreria)
             break
-        elif opcion == "4":
-            print("Has seleccionado ver la lectura de las 4 librerias")
-            libreria="todas"
-            menu2(libreria)
         elif opcion == "0":
             print("Saliendo...")
             break
@@ -44,32 +30,38 @@ def main():
 def menu2(libreria):
     while True:
         print("\n Ahora, selecciona un filtro para leer la imagen:")
-        print("1. Filtro 1")
-        print("2. Filtro 2")
-        print("3. Filtro 3")
-        print("4. Filtro 4")
+        print("1. Filtro blanco y negro")
+        print("2. Filtro de contorno")
+        print("3. Filtro mejora del contraste")
+        print("4. Filtro de suavizado Gaussiano")
+        print("5. Filtro de mejora de nitidez (Laplaciano)")
         print("0. Salir")
 
         opcion = input("Ingresa el número de la opción que deseas: ")
 
         if opcion == "1":
-            print("Has seleccionado el filtro 1")
+            print("Has seleccionado el filtro blanco y negro")
             filtro=1
             menu3(libreria, filtro)
             break
         elif opcion == "2":
-            print("Has seleccionado el filtro 2")
+            print("Has seleccionado el filtro de mejora del contraste")
             filtro=2
             menu3(libreria, filtro)
             break
         elif opcion == "3":
-            print("Has seleccionado el filtro 3")
+            print("Has seleccionado el filtro de contraste")
             filtro=3
             menu3(libreria, filtro)
             break
         elif opcion == "4":
-            print("Has seleccionado el filtro 4")
+            print("Has seleccionado el filtro Gaussiano")
             filtro=4
+            menu3(libreria, filtro)
+            break
+        elif opcion == "5":
+            print("Has seleccionado el filtro Laplaciano")
+            filtro=5
             menu3(libreria, filtro)
             break
         elif opcion == "0":
@@ -128,18 +120,20 @@ def menu4(libreria, filtro, dificultad):
             plt.imshow(cv2.cvtColor(imagen, cv2.COLOR_BGR2RGB))
             plt.subplot(1,2,2)
             plt.title("Imagen con el filtro aplicado")
-            plt.imshow(imagen_filtrada)            
+            plt.imshow(imagen_filtrada)             # type: ignore
             plt.show()
 
             print("\nTratando de leer la imagen filtrada con la liberia selecionada...")
             resultadoLeeImagen = mainFile.leeImagen(libreria, imagen)
             mainFile.pintaLeeImagen(libreria,resultadoLeeImagen)
-            if(len(resultadoLeeImagen[0])>0):
+            '''
+            if(len(str(resultadoLeeImagen)[0])>0):
                 print("\n Buscando coincidencias en la base de datos de EASport FC 24...")
-                mainFile.compruebaDB(resultadoLeeImagen)
+                #comparacionBD.compruebaDB(resultadoLeeImagen)
             else:
                 print("Al no encontrase ningun texto en la imagen, no se pueden buscar coincidencias con la base de datos.")
             menu5()
+            '''
         else:
             print("Número fuimagenera de rango. Inténtalo de nuevo.")
             menu5()

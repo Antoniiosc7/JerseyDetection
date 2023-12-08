@@ -22,13 +22,25 @@ En windows se puede ejecutar directamente el script "scriptInstalacion.bat", o t
 - pip install pillow
 - pip install pytesseract
 - pip install os-sys
-- pip install tensorflow
-- pip install keras-ocr
+
 
 ## Breve descripcion de funcionamiento
 
-El proyecto está dividido en 3 archivos. 
+El proyecto está dividido en 4 archivos. 
     - mainFile.py: Es el archivo que se debe ejecutar y en donde se encuentran la mayoria de funciones.
     - menus.py: Contiene todos los menu que van apareciendo por consola
     - filtros.py: En el están los filtros que se pueden aplicar a las imagenes para poder obtener una mejor lectura
+    - comparacionDB.py: En este archivo comparamos lo que hemos leido gracias a los filtros y las librerias con posibles jugadores que hay en la base de datos de EA Sports.
 
+Después tambien está el archivo 'comparativaGlobal.py' que es un archivo que al ejecutarlo y seleccionar una imagen para analizar procederá a comparar las lecturas de las dos librerias con todos los filtros a la vez, de esta forma se puede ver que filtro y qué libreria funciona mejor para cada archivo.
+
+Por ejemplo, asi se verían los filtros para una imagen:
+    ![Foto ejemplo de ver todos los filtros](ejemploReadme.png)
+
+Y esto es lo que leemos con la libreria easyOcr por ejemplo:
+-   Lectura imagen original: ['IRAKITIC ', '']
+-   Lectura imagen blanca y negra:  ['IRAKITIC ', '10']
+-   Lectura imagen con contorno: ['IRARItIc ', '']
+-   Lectura imagen con mejora del contraste: ['IRAKITIC ', '10']
+-   Lectura imagen suavizada (Gaussiano): ['LRAKITIC ', '10']
+-   Lectura de mejora de nitidez Laplaciano:  ['', '']
