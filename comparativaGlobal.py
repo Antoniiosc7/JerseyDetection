@@ -64,14 +64,14 @@ def eligeFoto(dificultad):
             
             plt.subplot(2, 3, 2)
             plt.title("Blanco y negro")
-            plt.imshow(imagen_filtrada1, cmap='gray')
+            plt.imshow(imagen_filtrada1, cmap='gray') # type: ignore
             plt.text(0.5, -0.1, leeimagen1, horizontalalignment='center', verticalalignment='center', transform=plt.gca().transAxes)
             plt.axis('off')
             print("Lectura imagen blanca y negra: \n PyTesseract: " + str(mainFile.pyTesseractCrudo(imagen_filtrada1)) + "\n easyOcr: " + leeimagen1)
             
             plt.subplot(2, 3, 3)
             plt.title("contorno")
-            plt.imshow(imagen_filtrada2, cmap='gray')
+            plt.imshow(imagen_filtrada2, cmap='gray') # type: ignore
             plt.text(0.5, -0.1, leeimagen2, horizontalalignment='center', verticalalignment='center', transform=plt.gca().transAxes)
             plt.axis('off')
             print("Lectura imagen con contorno: \n PyTesseract: " + str(mainFile.pyTesseractCrudo(imagen_filtrada2)) + "\n easyOcr: " + leeimagen2)
@@ -79,21 +79,21 @@ def eligeFoto(dificultad):
             # Segunda fila
             plt.subplot(2, 3, 4)
             plt.title("Contraste")
-            plt.imshow(imagen_filtrada3, cmap='gray')
+            plt.imshow(imagen_filtrada3, cmap='gray') # type: ignore
             plt.text(0.5, -0.1, leeimagen3, horizontalalignment='center', verticalalignment='center', transform=plt.gca().transAxes)
             plt.axis('off')
             print("Lectura imagen con mejora del contraste: \n PyTesseract: " + str(mainFile.pyTesseractCrudo(imagen_filtrada3)) + "\n easyOcr: " + leeimagen3)
             
             plt.subplot(2, 3, 5)
             plt.title("Gaussiano")
-            plt.imshow(imagen_filtrada4, cmap='gray')
+            plt.imshow(imagen_filtrada4, cmap='gray') # type: ignore
             plt.text(0.5, -0.1, leeimagen4, horizontalalignment='center', verticalalignment='center', transform=plt.gca().transAxes)
             plt.axis('off')
             print("Lectura imagen suavizada (Gaussiano): \n PyTesseract: " + str(mainFile.pyTesseractCrudo(imagen_filtrada4)) + "\n easyOcr: " + leeimagen4)
             
             plt.subplot(2, 3, 6)
             plt.title("Laplaciano")
-            plt.imshow(imagen_filtrada5, cmap='gray')
+            plt.imshow(imagen_filtrada5, cmap='gray') # type: ignore
             plt.text(0.5, -0.1, leeimagen5, horizontalalignment='center', verticalalignment='center', transform=plt.gca().transAxes)
             plt.axis('off')            
             print("Lectura de mejora de nitidez Laplaciano: \n PyTesseract: " + str(mainFile.pyTesseractCrudo(imagen_filtrada5)) + "\n easyOcr: " + leeimagen5)
@@ -115,7 +115,7 @@ def menuFinal():
         print("0. Salir")
 
         opcion = input("Ingresa el número de la opción que deseas: ")
-
+        int(opcion)
         if opcion == "1":
             eligeDirectorio()
             break

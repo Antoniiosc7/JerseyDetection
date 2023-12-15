@@ -150,7 +150,7 @@ def menu4(libreria, filtro, dificultad):
             plt.show()
 
             print("\nTratando de leer la imagen filtrada con la liberia selecionada...")
-            resultadoLeeImagen = mainFile.leeImagen(libreria, imagen)
+            resultadoLeeImagen = mainFile.leeImagen(libreria, imagen_filtrada)
             mainFile.pintaLeeImagen(libreria,resultadoLeeImagen)
             if libreria == "easyocr":
                 if(len(str(resultadoLeeImagen)[0])>0):
@@ -160,7 +160,7 @@ def menu4(libreria, filtro, dificultad):
                     print("Al no encontrase ningun texto en la imagen, no se pueden buscar coincidencias con la base de datos.")
             menu5()
         else:
-            print("Número fuimagenera de rango. Inténtalo de nuevo.")
+            print("Número fuera de rango. Inténtalo de nuevo.")
             menu5()
 
     except ValueError:
@@ -173,11 +173,11 @@ def menu5():
         print("0. Salir")
 
         opcion = input("Ingresa el número de la opción que deseas: ")
-
-        if opcion == "1":
+        opcion = int(opcion)
+        if opcion == 1:
             main()
             break
-        elif opcion == "0":
+        elif opcion == 0:
             print("Saliendo...")
             break
         else:

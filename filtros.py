@@ -2,6 +2,7 @@ import cv2, numpy as np, matplotlib.pyplot as plt
 import menus
 
 def filtrado(filtro, imagen):
+    imagen = cv2.resize(imagen, None, fx=1.5, fy=1.5, interpolation=cv2.INTER_LINEAR)
     if imagen is None or imagen.size == 0:
         # La imagen es nula o vacía
         print("\n Error: La imagen es nula o vacía.")
@@ -27,5 +28,7 @@ def filtrado(filtro, imagen):
     elif filtro == 5:
         # Filtro de mejora de nitidez (Laplaciano)
         laplaciano = cv2.Laplacian(imagen, cv2.CV_64F) # type: ignore
-        mejora_nitidez = np.uint8(np.abs(laplaciano))
+        # Ajustar la nitidez sumando una fracción del Laplaciano a la imagen original
+        alfa = 0.2  # Factor de ajuste, puedes ajustarlo según sea necesario
+        mejora_nitidez = np.uint8(np.clip(imagen + alfa * laplaciano, 0, 255))
         return mejora_nitidez
